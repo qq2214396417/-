@@ -1,0 +1,80 @@
+#include<iostream>
+
+using namespace std;
+
+int search(int a[][100],int i,int j,int n)
+{
+    if(i == n){
+        return a[i][j];
+    }
+    int max=0;
+    max=search(a,i+1,j,n)>search(a,i+1,j+1,n)?search(a,i+1,j,n):search(a,i+1,j+1,n);
+    max+=a[i][j];
+    return max;
+}
+int main()
+{
+    int a[10][100],n;
+    cin >> n;
+    for(int i = 1 ; i <= n;i++)
+    {
+        for(int j=1;j<=i;j++)
+            cin>>a[i][j];
+    }
+    int maxsum=0;
+    maxsum = search(a,1,1,n);
+    cout<<maxsum;
+    return 0;
+}
+
+#include<iostream>
+
+using namespace std;
+int main()
+{
+    int a[10][10];
+    int n;
+    cin>>n;
+     for(int i = 1 ; i <= n;i++)
+    {
+        for(int j=1;j<=i;j++)
+            cin>>a[i][j];
+    }
+    int x;
+    for(int i=n-1;i>=1;i--)
+        for(int j=1;j<=i;j++)
+        {
+            x=a[i+1][j]>a[i+1][j+1]?a[i+1][j]:a[i+1][j+1];
+            a[i][j]=a[i][j]+x;
+        }
+        cout<<a[1][1]<<endl;
+    return 0;
+}
+
+
+#include<iostream>
+
+using namespace std;
+int s(int i,int j,int a[][10],int d[][10],int n)
+{
+    if(d[i][j]>=0)
+        return d[i][j];
+    if(i==n)
+        return a[i][j];
+    int x=s(i+1,j,a,d,n)>s(i+1,j+1,a,d,n)?s(i+1,j,a,d,n):s(i+1,j+1,a,d,n);
+    d[i][j]=a[i][j]+x;
+    return d[i][j];
+}
+int main()
+{
+    int a[10][10],d[10][10];
+    int n;
+    cin>>n;
+    for(int i=1;i<=n;i++)
+        for(int j=1;j<=i;j++)
+            cin>>a[i][j];
+    memset(d,-1,sizeof(d));
+    int maxsum=s(1,1,a,d,n);
+    cout<<maxsum;
+    return 0;
+}
