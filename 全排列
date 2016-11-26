@@ -1,0 +1,40 @@
+#include <iostream>
+#include <algorithm>
+using namespace std;
+const int NUM=2016;
+int cun[NUM],go[NUM];
+bool judge_prime(int n){
+    if (n<=1){
+        return false;
+    }
+    for (int i=2;i*i<=n;++i){
+        if (n%i==0){
+            return false;
+        }
+    }
+    return true;
+}
+int main(){
+    int n,k;
+    cin>>n>>k;
+    for (int i=1;i<=n;++i){
+        cin>>cun[i];
+    }
+    for (int i=n;i>=n-k+1;--i){
+        go[i]=1;
+    }
+    int count=0;
+    do {
+        int s=0;
+        for (int i=1;i<=n;++i){
+            if (go[i]==1){
+                s+=cun[i];
+            }
+        }
+        if (judge_prime(s)==true){
+            ++count;
+        }
+    }while (next_permutation(go+1,go+n+1));
+    cout<<count<<endl;
+    return 0;
+}
