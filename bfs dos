@@ -1,0 +1,41 @@
+
+
+//BFS  DFS  深度(离开始的点的距离)优先遍历 模拟队列
+
+#include<iostream>
+#define MAXN 10
+
+using namespace std;
+
+int q[MAXN+2][MAXN+2];
+void bfs(int x,int y)
+{
+    int dx[]={1,-1,0,0},dy[]={0,0,1,-1};//四个方向
+    int front=0,rear=0,d,u; //初始化队列
+    u=x*m+y; //标记位置
+    vis[x][y]=1; //使用标记
+    fa[x][y]=u;//fx fy为后面打印路径做铺垫
+    dist[x][y]=0;//记录距离
+    q[rear++]=u;//模拟队列 从队尾进入队列
+    while(rear>front)//插入元素
+    {
+        u=q[front++];
+        x=u/m;//改变位置啊
+        y=u%m;//改变位置
+        for(int i=0;i<4;i++)
+        {  //开始移动4个方向
+            int nx=x+dx[i];
+            int ny=y+dy[i];
+            //判断是否合理 优先原则
+            if(nx>=0 && nx<n && ny>=0 && ny<m && maze[nx][ny] && !vis[nx][ny]))
+            {
+    vis[nx][ny]=1;// 再次标记
+    int v=nx*m+ny; //记录这个点的位置准备入列
+    q[rear++]=v;//新位置入列
+    fa[nx][ny]=u;//
+    dist[nx][ny]=dist[x][y]+1;//距离加一
+    last_dir[nx][ny]=d;//记录方向
+            }
+        }
+    }
+}
