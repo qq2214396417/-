@@ -1,0 +1,127 @@
+分治法
+1.将问题化为两个子问题
+2.分别递归求解两个子问题
+3.合并得到原问题的解
+
+注意一定要点明在分治到最后一步的时候的返回值 一定要说明白
+
+
+#include<iostream>
+using namespace std;
+int f(int a[],int x,int y){
+    int m,max,v,r,l;
+    if(y-x==1)
+    return a[x];
+    m=(x+y)/2;
+    max=f(a,x,m)>f(a,m,y)?f(a,x,m):f(a,m,y);
+    v=0;
+    l=a[m-1];
+    for(int i=m-1;i>=x;i--)
+    {
+        v+=a[i];
+        l=l>v?l:v;
+    }
+    v=0;
+    r=a[m];
+    for(int j=m;j<y;j++)
+    {
+        v+=a[j];
+        r=r>v?r:v;
+    }
+    max=max>(l+r)?max:(l+r);
+    return max;
+}
+int main()
+{
+
+return 0;
+}
+
+
+
+#include<iostream>
+using namespace std;
+int cnt=0;
+void sort(int *a,int *t,int x,int y){
+    if(y-x>1)
+    {
+        int m=x+(y-x)/2;
+        int p=x,i=x,q=m;
+        sort(a,t,x,m);
+        sort(a,t,m,y);
+        while(p<m||q<y){
+            if(q>=y||(p<m&&a[p]<=a[q]))
+                t[i++]=a[p++];
+            else
+            {
+                cnt+=m-p;
+                t[i++]=a[q++];
+            }
+        }
+        for(int i=x;i<y;i++)
+            a[i]=t[i];
+    }
+}
+int main()
+{
+    int a[10]={1,6,45,7,8,954,0,4,5,8};
+    int t[10];
+    sort(a,t,0,10);
+    for(int i=0;i<10;i++)
+        cout<<a[i]<<" ";
+    cout<<endl<<cnt<<endl;
+    return 0;
+}
+
+#include<iostream>
+using namespace std;
+int pow_mod(int a,int n,int m)
+{
+    if(n==1)
+        return a%m;
+    int p=pow_mod(a,n/2,m)*pow_mod(a,n/2,m);
+    if(n%2==1)
+        p=p*a%m;
+    return p;
+}
+int main()
+{
+    int a,n,m,k;
+    cin>>a>>n>>m;
+    k=pow_mod(a,n,m);
+    cout<<k<<endl;
+    return 0;
+}
+
+
+#include<iostream>
+using namespace std;
+int f(int a,int b,int m)
+{
+    int c=1;
+    c=f(a,b/2,m)*f(a,b/2,m)%m;
+    if(b%2)
+        c=c*(a%m)%m;
+    return c;
+}
+int main()
+{
+    int n,q;
+    int p=0,m;
+    cin>>n;
+    
+    for(int i=0;i<n;i++)
+    {
+        cin>>m>>q;
+        p=0;
+        for(int j=0;j<q;j++)
+        {
+            int a,b,d;
+            cin>>a>>b;
+            d=f(a,b,m);
+            p=(p+d)%m;
+        }
+        cout<<p<<endl;
+    }
+    return 0;
+}
