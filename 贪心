@@ -1,0 +1,29 @@
+#include<iostream>
+
+using namespace std;
+
+int main()
+{
+    int n,m;
+    cin>>n>>m;
+    int a[n];
+    for(int i=0;i<n;i++)
+        cin>>a[i];
+    int sum=0;
+    int ans=1;
+    for(int j=0;j<n;j++)
+    {
+        sum+=a[j];
+        if(sum>m)
+        {
+            sum=0;
+            j--;
+            ans++;
+        }
+    }
+    cout<<ans;
+    return 0;
+}
+对于给定的一个长度为N的正整数数列A[i]，现要将其分成连续的若干段，并且每段和不超过M
+（可以等于M），问最少能将其分成多少段使得满足要求。
+
