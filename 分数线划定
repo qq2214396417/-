@@ -1,0 +1,58 @@
+#include<iostream>
+#include<map>
+#include<set>
+
+using namespace std;
+
+struct data{
+    int a;
+    int b;
+};
+struct rule{
+    bool operator()(const data &a,const data &b)
+    {
+        if(a.b!=b.b)
+            return a.b>b.b;
+        return a.a<b.a;
+    }
+};
+int main()
+{
+    map<int,int>mp;
+    int n,m;
+    cin>>n>>m;
+    for(int i=0;i<n;i++)
+    {
+        int x,y;
+        cin>>x>>y;
+        mp[x]=y;
+    }
+    set<data,rule>st;
+    map<int,int>::iterator d;
+    for(d=mp.begin();d!=mp.end();d++)
+    {
+        data z;
+        z.a=d->first;
+        z.b=d->second;
+        st.insert(z);
+    }
+    int p=m*1.5;
+    int k=0;
+    set<data,rule>::iterator s;
+    for(s=st.begin();s!=st.end()&&k<p;s++,k++);
+    int min=s->b;
+    int u=0;
+    for(s=st.begin();s!=st.end()&&;s++)
+    {   
+        if(s->b>=min)
+            u++;
+    }
+    cout<<min<<' '<<u;
+    int v=0;
+    for(s=st.begin();s!=st.end()&&v<u;s++,v++)
+    {
+        cout<<s->a<<' '<<s->b<<endl;
+    }
+
+    return 0;
+}
