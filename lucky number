@@ -1,0 +1,60 @@
+#include<iostream>
+#include<cctype>
+#include<string>
+#include<map>
+#include<set>
+
+using namespace std;
+
+int isprime(int n)
+{
+    if(n<=1)
+        return 0;
+    for(int i=2;i*i<=n;i++)
+        if(n%i==0)
+            return 0;
+    return 1;
+}
+struct data{
+    char a;
+    int b;
+};
+struct rule{
+    bool operator ()(const data &a,const data &b)
+    {
+        return a.b>=b.b;
+    }
+};
+
+int main()
+{
+    string s;
+    cin>>s;
+    map<char,int>mp;
+    for(int i=0;i<s.size();i++)
+        mp[s[i]]++;
+    set<data,rule> st;
+    map<char,int>::iterator p;
+    for(p=mp.begin();p!=mp.end();p++)
+    {
+        data x;
+        x.a=p->first;
+        x.b=p->second;
+        st.insert(x);
+    }
+    set<data,rule>::iterator q=st.begin();
+    set<data,rule>::iterator d=st.end();
+    d--;
+    int x=d->b;
+int y=q->b;
+    y=y-x;
+if(isprime(y)){
+    cout<<"Lucky Word";
+    cout<<endl;
+    cout<<y;
+    }
+else{
+cout<<"No Answer"<<endl<<'0';
+    }
+    return 0;
+}
